@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IChessForm } from "@interfaces/IChess";
 import { Button, Input, Card } from "@nextui-org/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { FaChessKing, FaChess } from "react-icons/fa";
@@ -12,11 +12,13 @@ import useModelStore from "@store/modelStore";
 
 const ChessForm = () => {
   const { getResult, loading, message } = useModelStore();
+  const [isToastOpen, setIsToastOpen] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IChessForm>({
     resolver: zodResolver(schemaChess),
     mode: "onChange",
@@ -28,9 +30,20 @@ const ChessForm = () => {
 
   useEffect(() => {
     if (message) {
-      toast(message.description, { type: message.status });
+      toast(message.description, {
+        type: message.status,
+        onOpen: () => {
+          if (message.status === "success") {
+            setIsToastOpen(true);
+          }
+        },
+        onClose: () => {
+          reset();
+          setIsToastOpen(false);
+        },
+      });
     }
-  }, [message]);
+  }, [message, reset]);
 
   return (
     <div className="flex justify-center items-center bg-gradient-to-r from-primary-100 to-secondary-100 text-foreground min-h-[calc(100vh-65px)] py-6">
@@ -47,11 +60,11 @@ const ChessForm = () => {
               <Card className="p-6 bg-primary-50 rounded-lg shadow-md">
                 <h3 className="text-xl font-semibold mb-4 text-primary-700">
                   <FaRegChessKing className="inline mr-2" /> Información del
-                  Jugador Blanco
+                  jugador blanco
                 </h3>
                 <div className="space-y-4">
                   <Input
-                    label="Elo del Blanco"
+                    label="Elo"
                     type="number"
                     fullWidth
                     variant="bordered"
@@ -61,7 +74,7 @@ const ChessForm = () => {
                     min={0}
                   />
                   <Input
-                    label="Diferencia de Rating del Blanco"
+                    label="Cambio en la calificación del elo"
                     type="number"
                     fullWidth
                     variant="bordered"
@@ -70,7 +83,7 @@ const ChessForm = () => {
                     errorMessage={errors.WhiteRatingDiff?.message}
                   />
                   <Input
-                    label="Tiempo Total de Juego del Blanco"
+                    label="Tiempo total de Juego"
                     type="number"
                     fullWidth
                     variant="bordered"
@@ -80,7 +93,7 @@ const ChessForm = () => {
                     min={0}
                   />
                   <Input
-                    label="Total de Partidas del Blanco"
+                    label="Total de partidas"
                     type="number"
                     fullWidth
                     variant="bordered"
@@ -94,11 +107,11 @@ const ChessForm = () => {
               <Card className="p-6 bg-secondary-50 rounded-lg shadow-md">
                 <h3 className="text-xl font-semibold mb-4 text-secondary-700">
                   <FaChessKing className="inline mr-2" /> Información del
-                  Jugador Negro
+                  jugador negro
                 </h3>
                 <div className="space-y-4">
                   <Input
-                    label="Elo del Negro"
+                    label="Elo"
                     type="number"
                     fullWidth
                     variant="bordered"
@@ -108,7 +121,7 @@ const ChessForm = () => {
                     min={0}
                   />
                   <Input
-                    label="Diferencia de Rating del Negro"
+                    label="Cambio en la calificación del elo"
                     type="number"
                     fullWidth
                     variant="bordered"
@@ -117,7 +130,7 @@ const ChessForm = () => {
                     errorMessage={errors.BlackRatingDiff?.message}
                   />
                   <Input
-                    label="Tiempo Total de Juego del Negro"
+                    label="Tiempo total de Juego"
                     type="number"
                     fullWidth
                     variant="bordered"
@@ -127,7 +140,7 @@ const ChessForm = () => {
                     min={0}
                   />
                   <Input
-                    label="Total de Partidas del Negro"
+                    label="Total de partidas"
                     type="number"
                     fullWidth
                     variant="bordered"
@@ -141,7 +154,7 @@ const ChessForm = () => {
             </div>
             <div className="grid grid-cols-1 gap-6">
               <Input
-                label="Total de Movimientos"
+                label="Total de movimientos"
                 type="number"
                 fullWidth
                 variant="bordered"
@@ -151,7 +164,7 @@ const ChessForm = () => {
                 min={0}
               />
               <Input
-                label="Control de Tiempo"
+                label="Control de tiempo"
                 type="number"
                 fullWidth
                 variant="bordered"
@@ -162,6 +175,7 @@ const ChessForm = () => {
               />
             </div>
             <Button
+              disabled={isToastOpen}
               type="submit"
               fullWidth
               color="primary"

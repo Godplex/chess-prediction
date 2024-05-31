@@ -11,62 +11,78 @@ const schemaChess = z.object({
   WhiteElo: z.preprocess(
     preprocessNumber,
     z
-      .number({ required_error: "White Elo is required" })
-      .nonnegative({ message: "White Elo must be a positive number" })
+      .number({ required_error: "El elo es obligatorio." })
+      .nonnegative({ message: "El Elo debe ser un número positivo." })
   ),
   WhiteRatingDiff: z.preprocess(
     preprocessNumber,
-    z.number({ required_error: "White Rating Diff is required" })
+    z.number({
+      required_error: "El cambio en la calificación del elo es obligatorio.",
+    })
   ),
   White_playTime_total: z.preprocess(
     preprocessNumber,
     z
-      .number({ required_error: "White Play Time Total is required" })
+      .number({ required_error: "El tiempo total de juego es obligatorio." })
       .nonnegative({
-        message: "White Play Time Total must be a positive number",
+        message: "El tiempo total de juego debe ser un número positivo.",
       })
   ),
   White_count_all: z.preprocess(
     preprocessNumber,
     z
-      .number({ required_error: "White Count All is required" })
-      .nonnegative({ message: "White Count All must be a positive number" })
+      .number({ required_error: "El total de partidas es obligatorio." })
+      .nonnegative({
+        message: "El total de partidas debe ser un número positivo.",
+      })
   ),
   BlackElo: z.preprocess(
     preprocessNumber,
     z
-      .number({ required_error: "Black Elo is required" })
-      .nonnegative({ message: "Black Elo must be a positive number" })
+      .number({ required_error: "El elo es obligatorio." })
+      .nonnegative({ message: "El elo debe ser un número positivo." })
   ),
   BlackRatingDiff: z.preprocess(
     preprocessNumber,
-    z.number({ required_error: "Black Rating Diff is required" })
+    z.number({
+      required_error: "El cambio en la calificación del elo es obligatorio.",
+    })
   ),
   Black_playTime_total: z.preprocess(
     preprocessNumber,
     z
-      .number({ required_error: "Black Play Time Total is required" })
+      .number({
+        required_error: "El tiempo total de juego es obligatorio.",
+      })
       .nonnegative({
-        message: "Black Play Time Total must be a positive number",
+        message: "El tiempo total de juego debe ser un número positivo.",
       })
   ),
   Black_count_all: z.preprocess(
     preprocessNumber,
     z
-      .number({ required_error: "Black Count All is required" })
-      .nonnegative({ message: "Black Count All must be a positive number" })
+      .number({
+        required_error: "El total de partidas es obligatorio.",
+      })
+      .nonnegative({
+        message: "El total de partidas debe ser un número positivo.",
+      })
   ),
   TotalMoves: z.preprocess(
     preprocessNumber,
     z
-      .number({ required_error: "Total Moves is required" })
-      .nonnegative({ message: "Total Moves must be a positive number" })
+      .number({ required_error: "El total de movimientos es obligatorio." })
+      .nonnegative({
+        message: "El total de movimientos debe ser un número positivo.",
+      })
   ),
   TimeControl: z.preprocess(
     preprocessNumber,
     z
-      .number({ required_error: "Time Control is required" })
-      .nonnegative({ message: "Time Control must be a positive number" })
+      .number({ required_error: "El control de tiempo es obligatorio." })
+      .nonnegative({
+        message: "El control de tiempo debe ser un número positivo.",
+      })
   ),
 });
 
