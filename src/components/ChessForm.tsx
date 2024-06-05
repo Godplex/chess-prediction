@@ -193,6 +193,7 @@ const ChessForm = () => {
                 {loading ? "Buscando..." : "Predecir"}
               </Button>
               <Button
+                disabled={loading}
                 type="button"
                 fullWidth
                 color="secondary"
