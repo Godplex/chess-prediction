@@ -11,7 +11,7 @@ import schemaChess from "@schemas/schemaChess";
 import useModelStore from "@store/modelStore";
 
 const ChessForm = () => {
-  const { getResult, loading, message } = useModelStore();
+  const { getResult, loading, message, resetMessage } = useModelStore();
 
   const {
     register,
@@ -33,9 +33,13 @@ const ChessForm = () => {
         type: message.status,
         autoClose: false,
         closeOnClick: false,
+        onClose: () => resetMessage(),
       });
     }
-  }, [message, reset]);
+    return () => {
+      resetMessage();
+    };
+  }, [message, resetMessage]);
 
   return (
     <div

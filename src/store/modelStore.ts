@@ -6,6 +6,7 @@ const useModelStore = create<IModelStore>()((set) => ({
   result: null,
   loading: false,
   message: null,
+  resetMessage: () => set({ message: null }),
   getResult: async (dataToSend) => {
     try {
       set(() => ({ loading: true, message: null }));
