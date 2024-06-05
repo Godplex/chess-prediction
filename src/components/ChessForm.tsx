@@ -102,10 +102,15 @@ const ChessForm = () => {
                   />
                 </div>
               </Card>
-              <div className="basis-1/5 flex items-center justify-center relative">
-                <FaChessPawn className="w-16 h-16 text-primary-700 animate-pulse absolute left-0" />
-                <span className="text-4xl font-bold">VS</span>
-                <FaChessPawn className="w-16 h-16 text-secondary-700 animate-pulse absolute right-0" />
+              <div className="basis-1/5 flex items-center justify-center relative gap-2">
+                <FaChessPawn className="w-12 h-12 text-primary-700 animate-pulse absolute left-0" />
+                <span
+                  className="text-4xl font-bold relative"
+                  style={{ color: "red" }}
+                >
+                  VS
+                </span>
+                <FaChessPawn className="w-12 h-12 text-secondary-700 animate-pulse absolute right-0" />
               </div>
               <Card className="p-6 bg-secondary-50 rounded-lg shadow-md basis-2/5">
                 <h3 className="text-xl font-semibold mb-4 text-secondary-700">
@@ -177,15 +182,25 @@ const ChessForm = () => {
                 min={0}
               />
             </div>
-            <Button
-              type="submit"
-              fullWidth
-              color="primary"
-              isLoading={loading}
-              startContent={<FaChess />}
-            >
-              {loading ? "Buscando..." : "Predecir"}
-            </Button>
+            <div className="flex gap-4">
+              <Button
+                type="submit"
+                fullWidth
+                color="primary"
+                isLoading={loading}
+                startContent={<FaChess />}
+              >
+                {loading ? "Buscando..." : "Predecir"}
+              </Button>
+              <Button
+                type="button"
+                fullWidth
+                color="secondary"
+                onPress={() => reset()}
+              >
+                Resetear
+              </Button>
+            </div>
           </form>
         </Card>
         <ToastContainer />
