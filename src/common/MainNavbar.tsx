@@ -20,7 +20,7 @@ type MenuItem = {
 
 const menuItems: MenuItem[] = [
   { title: "Inicio", url: "/" },
-  { title: "Dashboard", url: "/dashboard" },
+  { title: "Code", url: "/code" },
 ];
 
 const MainNavbar = () => {
